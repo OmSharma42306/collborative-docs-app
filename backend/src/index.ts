@@ -35,9 +35,24 @@ wss.on('connection',function connection(ws){
         }        
         
         if(senderWs){
-            senderWs.send(JSON.stringify({msg:"YE KYA BOLTI TU < "}))
+            senderWs.on('message',function message(data:any,isBinary){
+                const msg = JSON.parse(data);
+                console.log(msg)
+                if(msg.type === "changeText"){
+                    receiverWs?.send("xyz")
+                }
+            })
         }
 
+        if(receiverWs){
+            receiverWs.on('message',function message(data:any,isBinary){
+                const msg = JSON.parse(data);
+                console.log(msg)
+                if(msg.type === "xyz"){
+                    senderWs?.send("HIIIIIIIIIIIII");
+                }
+            })
+        }
         ws.send("connected!");    
     })
 
@@ -53,10 +68,15 @@ wss.on('connection',function connection(ws){
     if(receiverWs){
         receiverWs.on('message',function message(data:any,isBinary){
             const msg = JSON.parse(data);
+            if(msg.xyz === "send"){
+                senderWs?.send(JSON.stringify({msg:"changeText",data}));    
+            }
             senderWs?.send(JSON.stringify({msg:"changeText",data}));
         })
     }
     
+
+ 
 
 
 })
