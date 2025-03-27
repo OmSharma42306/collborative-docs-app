@@ -15,7 +15,7 @@ const content = {
 
 console.log(content.content.map(e=>{
     // e.content.map(e=>{e.text})
-    console.log(e.content.map(el=>{
+    e.content.map(el=>{
         console.log(el.text)
-    }))
+    })
 }))

@@ -22,10 +22,11 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Editor.css"; // Add basic styles
 
 const TextEditor: React.FC = () => {
+  const [content,setContent] = useState("");
   const editor = useEditor({
     extensions: [StarterKit], // Basic formatting (bold, italic, lists, etc.)
     content: "<p>Start writing...</p>", // Initial content
@@ -33,6 +34,14 @@ const TextEditor: React.FC = () => {
         // get content in JSON format.
         const content = editor.getJSON();
         console.log(content)
+        let extractedContent:string|any = "";
+        content.content?.map(co=>{
+            co.content?.map(c=>{
+                 extractedContent+=c.text;
+            })
+            
+        })
+        console.log(extractedContent)
     }
   });
 
