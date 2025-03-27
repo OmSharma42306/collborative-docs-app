@@ -1,0 +1,10 @@
+.editor-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 300px;
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+  }
+  
