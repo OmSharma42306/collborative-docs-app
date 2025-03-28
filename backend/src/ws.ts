@@ -5,7 +5,7 @@ import {WebSocket,WebSocketServer} from "ws"
 export function initWs(){
     const clients:Record<string,WebSocket> = {};
     const wss = new WebSocketServer({port:8080});
-    
+    console.log("WebSocket Server Started!");
      // adding one to one connection for socket to communication.
     wss.on('connection',function connection(ws,req){
         ws.on('error',console.error);

@@ -3,8 +3,12 @@ import {Request,Response} from "express"
 import { signinInput,signupInput } from "../zodvalidation"; 
 import { userModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
-const my_secretkey = process.env.JWT_SECRET || "";
+import dotenv from "dotenv";
 
+dotenv.config();
+
+const my_secretkey = process.env.JWT_SECRET || "";
+console.log(my_secretkey)
 const router = express.Router();
 
 
