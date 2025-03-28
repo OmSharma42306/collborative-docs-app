@@ -3,15 +3,14 @@ import {Request,Response} from "express"
 import { signinInput,signupInput } from "../zodvalidation"; 
 import { userModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
-
-const app = express();
-
-const PORT = 4000;
 const my_secretkey = process.env.JWT_SECRET || "";
+
+const router = express.Router();
+
 
 // User Related Stuff..
 
-app.post("/signup",async(req:Request,res:Response)=>{
+router.post("/signup",async(req:Request,res:Response)=>{
     // validation through zod
     const {success} = signupInput.safeParse(req.body);
     if(!success){
@@ -52,7 +51,7 @@ app.post("/signup",async(req:Request,res:Response)=>{
 
 })
 
-app.post('/login',async (req:Request,res:Response)=>{
+router.post('/login',async (req:Request,res:Response)=>{
 
 const {success} = signinInput.safeParse(req.body);
 if(!success){
@@ -90,8 +89,4 @@ try{
 })
 
 
-
-
-app.listen(4000,()=>{
-    console.log(`Server Started! at PORT : ${PORT}`)
-})
+export default router
