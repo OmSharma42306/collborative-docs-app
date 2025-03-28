@@ -1,11 +1,13 @@
 import express from "express";
 import {Request,Response} from "express"
-import { signinInput,signupInput } from "./zodvalidation"; 
-import { userModel } from "./models/userModel";
+import { signinInput,signupInput } from "../zodvalidation"; 
+import { userModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
-const app = express();
-const PORT = 4000;
 
+const app = express();
+
+const PORT = 4000;
+const my_secretkey = process.env.JWT_SECRET || "";
 
 // User Related Stuff..
 
@@ -75,7 +77,7 @@ try{
 
     const userId = checkUserExists?._id;
 
-    const token = jwt.sign({userId},"my_secretkey");
+    const token = jwt.sign({userId},my_secretkey);
     
     res.status(200).json({msg:"Login Successful!,token:",token});
     return;
