@@ -3,7 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import "../styles/Editor.css"; // Add basic styles
 
-const TextEditor: React.FC = () => {
+const TextEditor2: React.FC = () => {
   
   const [socket,setSocket] = useState<WebSocket>();
   const [text,setText] = useState<string|null>("");
@@ -57,4 +57,4 @@ const TextEditor: React.FC = () => {
   );
 };
 
-export default TextEditor;
+export default TextEditor2;
