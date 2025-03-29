@@ -1,6 +1,4 @@
-import express, { json } from  "express" 
 import {WebSocket,WebSocketServer} from "ws"
-
 
 export function initWs(){
     const clients:Record<string,WebSocket> = {};
@@ -28,10 +26,7 @@ export function initWs(){
             }
         })
         console.log(clients);
-    
-        
-
-        
+   
         ws.on("close",function close(){
             console.log(`${clients[userId]} is Disconnected!`);
             delete clients[userId];
