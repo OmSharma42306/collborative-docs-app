@@ -21,11 +21,14 @@ export function initWs(){
         ws.on('message',function message(data:any,isBinary){
             const msg = JSON.parse(data);
             const toUserId = msg.toUserId;
+            const textdata = msg.data;
+            console.log("TEEEEEEEEEEEEEEEEEEEEEEEEEEEE",textdata)
+            
             if(clients[toUserId]){
                 clients[toUserId].send(JSON.stringify({msg:"hi"}));
             }
         })
-        console.log(clients);
+        //console.log(clients);
    
         ws.on("close",function close(){
             console.log(`${clients[userId]} is Disconnected!`);
