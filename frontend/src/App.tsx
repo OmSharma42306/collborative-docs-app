@@ -5,8 +5,6 @@ function App() {
   const navigate = useNavigate();
   return (
     <div>
-
-    
     <Routes>
       <Route path='/sender' element={<EditorSender/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>

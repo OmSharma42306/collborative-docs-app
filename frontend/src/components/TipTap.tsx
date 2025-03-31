@@ -27,7 +27,7 @@ const TextEditor: React.FC = () => {
 
   useEffect(()=>{
     console.log(text);
-    socket?.send(JSON.stringify({data:text,toUserId:"4322"}))
+    socket?.send(JSON.stringify({type:"sender-edit",data:text,toUserId:"4322"}))
   },[text])
 
 
