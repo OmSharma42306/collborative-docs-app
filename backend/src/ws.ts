@@ -29,6 +29,7 @@ export function initWs(){
                 ws.send(JSON.stringify({msg:"Connection Established."}))
             }else if(msg.type === "receiver"){
                 const roomId = msg.roomId;
+                console.log("HIIIIIIIIIII")
                 //console.log("ROOOOOOOOO",roomId)
                 const existingSession = sessions.get(roomId);
                 //console.log("Existing Session: ",existingSession)
@@ -56,9 +57,7 @@ export function initWs(){
             }
 
         })
-   
-       
-
+    
         ws.send(JSON.stringify({msg:"Websocket Server Up!!"}));
     })
 }
