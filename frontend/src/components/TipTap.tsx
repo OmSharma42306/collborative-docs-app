@@ -7,11 +7,11 @@ const TextEditor: React.FC = () => {
   
   const [socket,setSocket] = useState<WebSocket>();
   const [text,setText] = useState<string|null>("");
-
+  
   // useeffect for socket initialization.
   
   useEffect(()=>{
-    const socket = new WebSocket("ws://localhost:8080/4214");
+    const socket = new WebSocket("ws://localhost:8080/4322");
     
     if(!socket || socket.readyState !== WebSocket.OPEN){
       console.log("Sockets are Not Connected!");
@@ -26,8 +26,12 @@ const TextEditor: React.FC = () => {
   },[]);
 
   useEffect(()=>{
+    if(!socket || socket.readyState !== WebSocket.OPEN){
+      console.log("Sockets are Not Connected!");
+      return;
+    }
     console.log(text);
-    socket?.send(JSON.stringify({type:"sender-edit",data:text,toUserId:"4322"}))
+    socket?.send(JSON.stringify({type:"sender-edit",data:text}))
   },[text])
 
 
