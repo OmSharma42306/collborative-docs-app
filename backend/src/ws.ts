@@ -42,6 +42,7 @@ export function initWs(){
                 }
                 if(existingSession){
                     existingSession.receiver = ws;
+                    console.log("chcekout!!!!",existingSession)
                     existingSession.receiver.send(JSON.stringify({msg:"Connection Established."}))
                 }
 
@@ -51,11 +52,11 @@ export function initWs(){
             }else if(msg.type === "sender-edit"){
                 const getSocket:WebSocket | any = getSessionBySocket(ws);
                 console.log("GET SOCKET FOR SENDEREDIT",getSocket);
-                getSocket?.receiver.send(JSON.stringify({msg:"senderData",data:msg.data}));
+                getSocket?.sender?.send(JSON.stringify({msg:"senderData",data:msg.data}));
             }else if(msg.type === "receiver-edit"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("getreceiver socket",getReceiverSocket)
-                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
+                getReceiverSocket?.receiver?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
             }
 
         })
