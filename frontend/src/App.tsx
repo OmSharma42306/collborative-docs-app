@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
     <Routes>
-      <Route path='/sender' element={<EditorSender userId={userId}/>}></Route>
+      <Route path='/sender' element={<EditorSender/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>
     </Routes>
     <button onClick={()=>{

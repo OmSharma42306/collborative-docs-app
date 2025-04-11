@@ -21,7 +21,12 @@ const TextEditor: React.FC = () => {
       console.log("Sockets are Connected!");
       setSocket(socket);
     }
+    
 
+    
+    return ()=>{
+      socket.close();
+    }
     // for when the text state changes the socket will send an data to ws server.
   },[]);
 
@@ -32,8 +37,20 @@ const TextEditor: React.FC = () => {
     }
     console.log(text);
     socket?.send(JSON.stringify({type:"sender-edit",data:text}))
+
+
   },[text])
 
+  if(socket){
+    socket.onmessage = async (event:any) =>{
+      const {msg,data}:{msg:string,data:string} = JSON.parse(event.data);
+      console.log(event.data);
+      console.log(msg)
+      console.log(data)
+    
+    }
+  }
+  
 
   const editor = useEditor({
     extensions: [StarterKit], // Basic formatting (bold, italic, lists, etc.)
@@ -57,6 +74,9 @@ const TextEditor: React.FC = () => {
   return (
     <div className="editor-container">
       <EditorContent editor={editor} />
+      <button onClick={()=>{
+        socket?.send(JSON.stringify({type:"sender",roomId:"4322"}))
+      }}>Connect</button>
     </div>
   );
 };

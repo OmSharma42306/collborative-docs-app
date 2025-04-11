@@ -1,6 +1,6 @@
-import Tiptap from "./TipTap"
+import TextEditor2 from "./TipTap2"
 export default function EditorReceiver(){
     return <div className="card">
-        <Tiptap/>
+        <TextEditor2/>
     </div>
 }

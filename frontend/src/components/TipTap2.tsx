@@ -37,7 +37,8 @@ const TextEditor2: React.FC = () => {
  useEffect(()=>{
   if(!socket) return;
   socket.onmessage = (data:any) =>{
-    console.log("Websocket data",data);
+    //console.log("Websocket data",data);
+    console.log("DDDDDDD",data.data)
   }
  })
 
@@ -63,6 +64,10 @@ const TextEditor2: React.FC = () => {
   return (
     <div className="editor-container">
       <EditorContent editor={editor} />
+      <button onClick={()=>{
+        socket?.send(JSON.stringify({type:"receiver",roomId:"4322"}))
+      }}>Connect</button>
+      
     </div>
   );
 };
