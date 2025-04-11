@@ -36,9 +36,14 @@ const TextEditor2: React.FC = () => {
 
  useEffect(()=>{
   if(!socket) return;
-  socket.onmessage = (data:any) =>{
-    //console.log("Websocket data",data);
-    console.log("DDDDDDD",data.data)
+  socket.onmessage = (event:any) =>{
+    console.log(event.data);
+    const {msg,data}:{msg:string,data:string} = JSON.parse(event.data);
+    console.log(msg)
+    console.log(data);
+
+    editor?.commands.setContent(`<p>${data}</p>`)
+
   }
  })
 

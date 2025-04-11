@@ -27,7 +27,7 @@ const TextEditor: React.FC = () => {
     return ()=>{
       socket.close();
     }
-    // for when the text state changes the socket will send an data to ws server.
+
   },[]);
 
   useEffect(()=>{
@@ -47,6 +47,11 @@ const TextEditor: React.FC = () => {
       console.log(event.data);
       console.log(msg)
       console.log(data)
+      console.log("data set")
+      setText(data);
+
+      editor?.commands.setContent(`<p>${data}</p>`);
+      
     
     }
   }
