@@ -52,11 +52,11 @@ export function initWs(){
             }else if(msg.type === "sender-edit"){
                 const getSocket:WebSocket | any = getSessionBySocket(ws);
                 console.log("GET SOCKET FOR SENDEREDIT",getSocket);
-                getSocket?.sender?.send(JSON.stringify({msg:"senderData",data:msg.data}));
+                getSocket?.receiver?.send(JSON.stringify({msg:"senderData",data:msg.data}));
             }else if(msg.type === "receiver-edit"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("getreceiver socket",getReceiverSocket)
-                getReceiverSocket?.receiver?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
+                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
             }
 
         })
