@@ -1,0 +1,48 @@
+
+.editor-container .ProseMirror {
+  padding: 1rem;
+  min-height: 200px;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.editor-container .ProseMirror p {
+  margin-bottom: 0.5rem;
+}
+
+.editor-container .ProseMirror p:last-child {
+  margin-bottom: 0;
+}
+
+.editor-container .ProseMirror:focus {
+  outline: none;
+}
+
+.editor-container .ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.editor-container .ProseMirror ul,
+.editor-container .ProseMirror ol {
+  padding: 0 1rem;
+}
+
+.editor-container .ProseMirror h1,
+.editor-container .ProseMirror h2,
+.editor-container .ProseMirror h3,
+.editor-container .ProseMirror h4,
+.editor-container .ProseMirror h5,
+.editor-container .ProseMirror h6 {
+  line-height: 1.1;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.editor-container .ProseMirror code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}

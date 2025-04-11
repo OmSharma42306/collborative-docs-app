@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
-import "../styles/Editor.css"; // Add basic styles
+//import "../styles/Editor.css"; // Add basic styles
 
 const TextEditor: React.FC = () => {
   
