@@ -22,6 +22,8 @@ export function initWs(){
         
         ws.on('message',function message(data:any,isBinary){
             const msg = JSON.parse(data);
+            console.log("MSG",msg)
+            console.log("MSG TYPE",msg.type);
             if(msg.type === "sender"){
                 const roomId = msg.roomId;
                 sessions.set(roomId,{sender:ws,receiver:null});
@@ -46,11 +48,11 @@ export function initWs(){
                 console.log("FINAL ",existingSession)
 
                 
-            }else if(msg.type === "senderEdit"){
+            }else if(msg.type === "sender-edit"){
                 const getSocket:WebSocket | any = getSessionBySocket(ws);
                 console.log("GET SOCKET FOR SENDEREDIT",getSocket);
                 getSocket?.receiver.send(JSON.stringify({msg:"senderData",data:msg.data}));
-            }else if(msg.type === "receiverEdit"){
+            }else if(msg.type === "receiver-edit"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("getreceiver socket",getReceiverSocket)
                 getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
@@ -64,10 +66,13 @@ export function initWs(){
 
 
 function getSessionBySocket(ws:WebSocket){
+    console.log(sessions.entries());
     for(const[roomId,session] of sessions.entries()){
         if(session.sender === ws || session.receiver === ws){
+            console.log("SESSION FOUND OMYA",session)
             return session;
         }
     }
+    console.log("SESSSSSSSION NOT FOUND!")
     return null;
 }
