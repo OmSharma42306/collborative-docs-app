@@ -27,3 +27,5 @@ async function authMiddleware(req:authRequest,res:Response,next:NextFunction){
     }
 
 }
+
+export default authMiddleware;
