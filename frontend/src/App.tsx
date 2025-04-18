@@ -1,12 +1,14 @@
 import EditorSender from './components/Editor_Sender'
 import EditorReceiver from './components/Editor_Receiver'
-import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import {Route,Routes,useNavigate} from "react-router-dom"
 import { useState } from 'react';
 function App() {
   const navigate = useNavigate();
+
+  // @ts-ignore
   const [userId,setUserId] = useState("");
+  
   return (
     <div>
     <Routes>

@@ -105,7 +105,7 @@
 // export default LandingPage;
 
 
-import React from 'react';
+
 import { 
   Files, 
   Users, 

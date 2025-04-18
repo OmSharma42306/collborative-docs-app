@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Search, 
   Plus, 
@@ -11,11 +11,9 @@ import {
   Star, 
   Clock, 
   MoreVertical, 
-  UserPlus, 
   FolderPlus,
   Menu,
-  X,
-  ChevronDown
+  X
 } from 'lucide-react';
 
 const Dashboard = () => {
