@@ -89,8 +89,7 @@ try{
     res.json({msg:error});
     return;
 }
-
-})
+});
 
 
 export default router

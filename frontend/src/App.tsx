@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import SignUp from './components/SignUp';
 import {Route,Routes,useNavigate} from "react-router-dom"
 import { useState } from 'react';
+import Login from './components/Login';
 function App() {
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='/sender' element={<EditorSender/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>
       <Route path='/signup' element={<SignUp/>}></Route>
+      <Route path='/login' element={<Login/>}></Route>
     </Routes>
     <button onClick={()=>{
       navigate("/sender")
