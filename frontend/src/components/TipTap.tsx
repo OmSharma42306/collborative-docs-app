@@ -7,11 +7,16 @@ const TextEditor: React.FC = () => {
   
   const [socket,setSocket] = useState<WebSocket>();
   const [text,setText] = useState<string|null>("");
-  
+  const [roomId,setRoomId] = useState<string>("");
   // useeffect for socket initialization.
   
+  function generateRoomId(){
+    const randomNumber:string = Math.floor(1000000+ Math.random() * 9000000).toString();
+    setRoomId(randomNumber);
+  }
+  
   useEffect(()=>{
-    const socket = new WebSocket("ws://localhost:8080/4322");
+    const socket = new WebSocket(`ws://localhost:8080/${roomId}`);
     
     if(!socket || socket.readyState !== WebSocket.OPEN){
       console.log("Sockets are Not Connected!");
@@ -77,11 +82,22 @@ const TextEditor: React.FC = () => {
 
 
   return (
+    <div>
+      <button onClick={generateRoomId}>Create Room Id</button>
+      
+      {roomId?<div>
+        <h1>RoomId : {roomId}</h1>
+        <button onClick={()=>{
+        socket?.send(JSON.stringify({type:"sender",roomId:roomId}))
+      }}>Connect</button>
+      </div>
+      :"" }
+    
     <div className="editor-container">
       <EditorContent editor={editor} />
-      <button onClick={()=>{
-        socket?.send(JSON.stringify({type:"sender",roomId:"4322"}))
-      }}>Connect</button>
+
+      
+    </div>
     </div>
   );
 };
