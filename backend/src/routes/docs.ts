@@ -2,20 +2,20 @@ import express from "express";
 import { Request,Response } from "express";
 import { createDocument } from "../zodvalidation";
 import { documentModel } from "../models/documentModel"; 
-
+import authMiddleware from "../middlewares/middleware";
 const router = express.Router();
 
 interface authRequest extends Request{
     userId?:string;
 }
 
-
-
-router.post("/create-doc",async(req:authRequest,res:Response)=>{
+router.post("/create-doc",authMiddleware,async(req:authRequest,res:Response)=>{
     const documentName = req.body.documentName;
     const content = req.body.content || "";
-    const {success} = createDocument.safeParse(documentName);
+
+    const {success} = createDocument.safeParse({documentName,content});
     const userId = req.userId;
+
     if(!success){
         res.json({msg:"Invalid Format!"});
         return;
@@ -31,10 +31,10 @@ router.post("/create-doc",async(req:authRequest,res:Response)=>{
     return;
 })
 
-router.post("/delete-doc",async(req:authRequest,res:Response)=>{
+router.post("/delete-doc",authMiddleware,async(req:authRequest,res:Response)=>{
     const documentName = req.body.documentName;
     const userId = req.body.userId;
-    const {success} = createDocument.safeParse(documentName);
+    const {success} = createDocument.safeParse({documentName});
     if(!success){
         res.json({msg:"Invalid Document Format!"});
         return;
@@ -56,9 +56,11 @@ router.post("/delete-doc",async(req:authRequest,res:Response)=>{
     return;
 })
 
-router.get("/get-all-docs",async(req:authRequest,res:Response)=>{
+router.get("/get-all-docs",authMiddleware,async(req:authRequest,res:Response)=>{
     const userId = req.params.userId;
     try{
+        // It replaces the user ID with the full user object. Without it, user will just be the ObjectId.
+        // If you don’t need the full user details and just want to filter by ID, you can skip .populate().
         const allDocs = await documentModel.find({userId:userId}).populate('userId');
         console.log("all docs",allDocs);
         res.json({allDocs:allDocs});
