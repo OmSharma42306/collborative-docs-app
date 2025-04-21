@@ -11,8 +11,8 @@ export default function Login(){
             const data = await response.data;
             console.log(data);
             const token = data.token;
-            localStorage.setItem("JWT TOKEN",token);
-            navigate("/")
+            localStorage.setItem("token",token);
+            navigate("/dashboard")
             
             
         }catch(error){

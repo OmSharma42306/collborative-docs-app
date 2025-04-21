@@ -6,6 +6,7 @@ import {Route,Routes,useNavigate} from "react-router-dom"
 import { useState } from 'react';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage';
+import CreateDocument from './components/CreateDocument';
 function App() {
   const navigate = useNavigate();
 
@@ -16,10 +17,12 @@ function App() {
     <div>
     <Routes>
       <Route path='/' element={<LandingPage/>}></Route>
+      <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/sender' element={<EditorSender/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>
       <Route path='/signup' element={<SignUp/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
+      <Route path='/createDocument'element={<CreateDocument/>}></Route>
     </Routes>
     <button onClick={()=>{
       navigate("/sender")
