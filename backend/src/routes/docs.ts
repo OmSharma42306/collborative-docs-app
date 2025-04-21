@@ -56,11 +56,16 @@ router.post("/delete-doc",async(req:authRequest,res:Response)=>{
     return;
 })
 
-router.get("/get-all-docs",async(req:Request,res:Response)=>{
+router.get("/get-all-docs",async(req:authRequest,res:Response)=>{
+    const userId = req.params.userId;
     try{
-
+        const allDocs = await documentModel.find({userId:userId}).populate('userId');
+        console.log("all docs",allDocs);
+        res.json({allDocs:allDocs});
+        return;
     }catch(error){
-
+        res.json({error});
+        return;
     }
     return;
 })

@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 
 const documentSchema = new mongoose.Schema({
@@ -12,6 +12,11 @@ const documentSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+
+    content:{
+        type:String,
+    },
+
     createdAt:{
         type:Date,
         default:Date.now()
