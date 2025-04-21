@@ -13,5 +13,6 @@ export const signinInput = z.object({
 
 export const createDocument = z.object({
     documentName : z.string(),
+    content:z.string().optional()
 });
 

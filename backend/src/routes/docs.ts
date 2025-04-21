@@ -1,8 +1,8 @@
 import express from "express";
 import { Request,Response } from "express";
 import { createDocument } from "../zodvalidation";
-import { JwtPayload } from "jsonwebtoken";
 import { documentModel } from "../models/documentModel"; 
+
 const router = express.Router();
 
 interface authRequest extends Request{
@@ -13,6 +13,7 @@ interface authRequest extends Request{
 
 router.post("/create-doc",async(req:authRequest,res:Response)=>{
     const documentName = req.body.documentName;
+    const content = req.body.content || "";
     const {success} = createDocument.safeParse(documentName);
     const userId = req.userId;
     if(!success){
@@ -20,13 +21,12 @@ router.post("/create-doc",async(req:authRequest,res:Response)=>{
         return;
     }
     try{
-        const createDocument = await documentModel.create({documentName:documentName,userId:userId});
+        const createDocument = await documentModel.create({documentName:documentName,content:content,userId:userId});
         await createDocument.save();
         res.json({msg:"Document Created Successfully!"});
-        return;
+        
     }catch(error){
         res.json({error})
-        return;
     }
     return;
 })
@@ -46,12 +46,12 @@ router.post("/delete-doc",async(req:authRequest,res:Response)=>{
             return;
         }
         res.json({msg:"Document Deleted Successfully!"});
-        return;
+        
         
 
     }catch(error){
         res.json({error});
-        return;
+        
     }
     return;
 })
@@ -62,10 +62,9 @@ router.get("/get-all-docs",async(req:authRequest,res:Response)=>{
         const allDocs = await documentModel.find({userId:userId}).populate('userId');
         console.log("all docs",allDocs);
         res.json({allDocs:allDocs});
-        return;
+        
     }catch(error){
         res.json({error});
-        return;
     }
     return;
 })
