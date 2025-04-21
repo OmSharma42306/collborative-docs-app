@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 import CreateDocument from './components/CreateDocument';
+import GetAllDocuments from './components/GetAllDocuments';
 function App() {
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ function App() {
       <Route path='/signup' element={<SignUp/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/createDocument'element={<CreateDocument/>}></Route>
+      <Route path='/getAllDocuments' element={<GetAllDocuments/>}></Route>
     </Routes>
     <button onClick={()=>{
       navigate("/sender")
