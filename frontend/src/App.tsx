@@ -5,6 +5,7 @@ import SignUp from './components/SignUp';
 import {Route,Routes,useNavigate} from "react-router-dom"
 import { useState } from 'react';
 import Login from './components/Login';
+import LandingPage from './components/LandingPage';
 function App() {
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ function App() {
   return (
     <div>
     <Routes>
-      <Route path='/' element={<Dashboard/>}></Route>
+      <Route path='/' element={<LandingPage/>}></Route>
       <Route path='/sender' element={<EditorSender/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>
       <Route path='/signup' element={<SignUp/>}></Route>

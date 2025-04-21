@@ -1,10 +1,13 @@
 import { useState } from "react"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function SignUp(){
 
+    const naviagte = useNavigate();
     const [name,setName] = useState<string>("");
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
+
 
 
     async function handleSignUp(){
@@ -33,6 +36,8 @@ export default function SignUp(){
     }}/>
     <br />
     <button onClick={handleSignUp}>SignUp</button>
-    
+    <h1 onClick={()=>{
+        naviagte("/login")
+    }}>Already User? Login Here</h1>
     </div>
 }

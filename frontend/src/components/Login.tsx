@@ -29,5 +29,10 @@ export default function Login(){
         }} />
         <br />
         <button onClick={handleLogin}>Login</button>
+
+        <h2 onClick={()=>{
+            navigate("/signup")
+        }}>New User ? Signup Here! </h2>
+
     </div>
 }
