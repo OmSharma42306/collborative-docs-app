@@ -31,12 +31,27 @@ router.post("/create-doc",async(req:authRequest,res:Response)=>{
     return;
 })
 
-router.post("/delete-doc",async(req:Request,res:Response)=>{
-
+router.post("/delete-doc",async(req:authRequest,res:Response)=>{
+    const documentName = req.body.documentName;
+    const userId = req.body.userId;
+    const {success} = createDocument.safeParse(documentName);
+    if(!success){
+        res.json({msg:"Invalid Document Format!"});
+        return;
+    }
     try{
+        const findDocument = await documentModel.findOneAndDelete({documentName:documentName,userId:userId});
+        if(!findDocument){
+            res.json({msg:"Document not Exists!"});
+            return;
+        }
+        res.json({msg:"Document Deleted Successfully!"});
+        return;
+        
 
     }catch(error){
-
+        res.json({error});
+        return;
     }
     return;
 })
