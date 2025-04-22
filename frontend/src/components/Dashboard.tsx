@@ -42,7 +42,9 @@ import { useNavigate } from 'react-router-dom';
               
             </div>
             <div className='px-3 py-2.5'>
-            <button className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            <button className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors" onClick={()=>{
+              naviagte("/receiver")
+            }}>
                 <PlusCircle size={20} />
                 Join Via Room Id
               </button>

@@ -26,12 +26,7 @@ function App() {
       <Route path='/createDocument'element={<CreateDocument/>}></Route>
       <Route path='/getAllDocuments' element={<GetAllDocuments/>}></Route>
     </Routes>
-    <button onClick={()=>{
-      navigate("/sender")
-    }}>Sender</button>
-    <button onClick={()=>{
-      navigate("/receiver")
-    }}>Receiver</button>
+  
     </div>
   )
 }
