@@ -1,10 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EditorSender from "./Editor_Sender";
+// import { documentNameAtom } from "../recoil/state/documentName";
+//import { useRecoilState } from "recoil";
 const token = localStorage.getItem("token")
 export default function GetAllDocuments(){
     const [allDocuments,setAllDocuments] = useState<[]>([]);
+    // const [docsName,setDocsName] = useRecoilState(documentNameAtom)
     const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
@@ -24,8 +26,8 @@ export default function GetAllDocuments(){
 
     async function handleOpenDocument(docsName:string){
         
-        <EditorSender docsName={docsName}/>
-        navigate("/sender")
+        // setDocsName(docsName);
+        navigate("/sender",{state:{documentName:docsName}});
         
     }
 
