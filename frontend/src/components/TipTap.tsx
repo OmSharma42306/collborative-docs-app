@@ -8,6 +8,7 @@ const TextEditor: React.FC = () => {
   const [socket,setSocket] = useState<WebSocket>();
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
+  const [roomCreated,setRoomCreated] = useState<Boolean>(false);
   // useeffect for socket initialization.
   
   function generateRoomId(){
@@ -53,7 +54,9 @@ const TextEditor: React.FC = () => {
       console.log(msg)
       console.log(data)
       console.log("data set")
+      
       setText(data);
+      setRoomCreated(true);
 
       editor?.commands.setContent(`<p>${data}</p>`);
       
@@ -93,11 +96,10 @@ const TextEditor: React.FC = () => {
       </div>
       :"" }
     
-    <div className="editor-container">
+    {roomCreated?<div className="editor-container">
       <EditorContent editor={editor} />
 
-      
-    </div>
+    </div>:""}
     </div>
   );
 };
