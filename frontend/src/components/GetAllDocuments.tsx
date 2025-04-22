@@ -1,8 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import EditorSender from "./Editor_Sender";
 const token = localStorage.getItem("token")
 export default function GetAllDocuments(){
     const [allDocuments,setAllDocuments] = useState<[]>([]);
+    const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
         const response = await axios.get("http://localhost:3000/api/v1/docs/get-all-docs",{
@@ -19,8 +22,11 @@ export default function GetAllDocuments(){
     },[])
     
 
-    async function handleOpenDocument(){
-
+    async function handleOpenDocument(docsName:string){
+        
+        <EditorSender docsName={docsName}/>
+        navigate("/sender")
+        
     }
 
 return <div>
@@ -31,7 +37,9 @@ return <div>
                 {value.documentName}
                 <br />
                 
-                <button onClick={handleOpenDocument}>Open the Document</button>
+                <button onClick={()=>{
+                    handleOpenDocument(value.documentName)
+                }}>Open the Document</button>
                 
             </div>
         })  :"Loading...."

@@ -19,7 +19,7 @@ function App() {
     <Routes>
       <Route path='/' element={<LandingPage/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
-      <Route path='/sender' element={<EditorSender/>}></Route>
+      <Route path='/sender' element={<EditorSender docsName={""}/>}></Route>
       <Route path='/receiver' element={<EditorReceiver/>}></Route>
       <Route path='/signup' element={<SignUp/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
