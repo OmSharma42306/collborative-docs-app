@@ -66,7 +66,7 @@
 // new code ui stuff
 
 
-import axios, { all } from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Code2, FileText, Plus, Loader2 } from 'lucide-react';

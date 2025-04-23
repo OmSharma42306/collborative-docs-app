@@ -1,6 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
+ 
 //import "../styles/Editor.css"; // Add basic styles
 
 const TextEditor: React.FC = () => {
@@ -79,11 +80,22 @@ const TextEditor: React.FC = () => {
             
         })
         setText(extractedContent);
+    },
+    onSelectionUpdate:({editor})=>{
+      const {from,to}:any = editor.state.selection;
+
+      socket?.send(JSON.stringify({
+        type:"cursor_update",
+        userId:"xuz",
+        name:"radod",
+        color:"red",
+        from,
+        to,
+      }))
+
     }
   }
 );
-
-
   return (
     <div>
       <button onClick={generateRoomId}>Create Room Id</button>
@@ -97,7 +109,7 @@ const TextEditor: React.FC = () => {
       :"" }
     
     {roomCreated?<div className="editor-container">
-      <EditorContent editor={editor} />
+      <EditorContent  editor={editor} />
 
     </div>:""}
     </div>
