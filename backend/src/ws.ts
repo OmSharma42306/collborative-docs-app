@@ -57,6 +57,15 @@ export function initWs(){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("getreceiver socket",getReceiverSocket)
                 getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverData",data:msg.data}));
+                // socket events for cursors.
+            }else if(msg.type === "cursor-update-sender"){
+                const getSenderSocket = getSessionBySocket(ws);
+                console.log("Gotten Sender Socket for Cursor Update");
+                getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor",data:"xyz"}));
+            }else if(msg.type === "cursor-update-receiver"){
+                const getReceiverSocket = getSessionBySocket(ws);
+                console.log("Gotten receiver Socket for Cursor Update");
+                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",data:"pqr"}))
             }
 
         })
