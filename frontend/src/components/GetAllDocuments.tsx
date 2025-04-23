@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { all } from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { documentNameAtom } from "../recoil/state/documentName";
@@ -33,7 +33,18 @@ export default function GetAllDocuments(){
 
 return <div>
 <h1>All Documents are Listed Below</h1>
-    {
+    {allDocuments && allDocuments.length<=0 ? "Empty Documents": allDocuments && allDocuments.length>0 ? allDocuments.map((value:any)=>{
+            return <div>
+                {value.documentName}
+                <br />
+                
+                <button onClick={()=>{
+                    handleOpenDocument(value.documentName)
+                }}>Open the Document</button>
+                
+            </div>
+        })  :"Loading...."}
+    {/* {
         allDocuments && allDocuments.length>0 ? allDocuments.map((value:any)=>{
             return <div>
                 {value.documentName}
@@ -45,7 +56,7 @@ return <div>
                 
             </div>
         })  :"Loading...."
-    }
+    } */}
 
     </div>
 }
