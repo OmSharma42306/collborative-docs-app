@@ -43,7 +43,7 @@ export function initWs(){
                 if(existingSession){
                     existingSession.receiver = ws;
                     console.log("chcekout!!!!",existingSession)
-                    existingSession.receiver.send(JSON.stringify({msg:"Connection Established."}))
+                    existingSession.receiver.send(JSON.stringify({msg:"Connection Established.",type:"connection-establish"}))
                 }
 
                 console.log("FINAL ",existingSession)
@@ -61,12 +61,12 @@ export function initWs(){
             }else if(msg.type === "cursor-update-sender"){
                 const getSenderSocket = getSessionBySocket(ws);
                 console.log("Gotten Sender Socket for Cursor Update");
-                console.log("MESSAGE KEERTHI : ",msg)
+                const {userId,name,color,from,to} = msg;
+
                 //getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor"}));
             }else if(msg.type === "cursor-update-receiver"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("Gotten receiver Socket for Cursor Update");
-                console.log("MESSAGE KEERTHI from Receiver end : ",msg)
                 //getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor"}))
             }
 
