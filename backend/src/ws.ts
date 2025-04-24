@@ -61,11 +61,13 @@ export function initWs(){
             }else if(msg.type === "cursor-update-sender"){
                 const getSenderSocket = getSessionBySocket(ws);
                 console.log("Gotten Sender Socket for Cursor Update");
-                getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor",data:"xyz"}));
+                console.log("MESSAGE KEERTHI : ",msg)
+                //getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor"}));
             }else if(msg.type === "cursor-update-receiver"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("Gotten receiver Socket for Cursor Update");
-                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",data:"pqr"}))
+                console.log("MESSAGE KEERTHI from Receiver end : ",msg)
+                //getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor"}))
             }
 
         })
