@@ -2,37 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import "../styles/Editor.css"; // Add basic styles
-import { splitCell } from "@tiptap/pm/tables";
-import {Decoration,DecorationSet} from "prosemirror-view";
-import { Plugin } from "prosemirror-state";
-
-
-// adding customs prosemirror plugin
-
-function RemoteCursorLogin(remoteCursors:any){
-return new Plugin({
-  props:{
-    decorations(state){
-      const decorations :any = [];
-
-      Object.values(remoteCursors).forEach(({from,to,color,username}:any)=>{
-        decorations.push(
-          Decoration.inline(from,to,{
-            style: `background-color: ${color}55`,
-            title:username,
-          })
-        )
-      })
-
-      return DecorationSet.create(state.doc,decorations);
-    }
-  }
-})
-}
-
-
-
-
+import {RemoteCursorPlugin} from "./utils/remote-cursor-plugin"
 
 const TextEditor2: React.FC = () => {
   
