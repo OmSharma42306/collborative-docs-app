@@ -41,27 +41,29 @@ const TextEditor2: React.FC = () => {
   if(!socket) return;
   socket.onmessage = (event:any) =>{
     console.log(event.data);
-    const {msg,data}:{msg:string,data:string} = JSON.parse(event.data);
-    console.log(msg)
-    console.log(data);
-    setRoomCreated(true);
-
-    editor?.commands.setContent(`<p>${data}</p>`)
+    const {msg,data,type}:{msg:string,data:string,type:string} = JSON.parse(event.data);
+    
+    if(type === "connection-establish"){
+      console.log("i am inside the co")
+      setRoomCreated(true);
+      editor?.commands.setContent(`<p>${data}</p>`)
+    }
+    
 
   }
  })
 
  // socket event for remote side cursor!
- if(!socket) return;
- socket.onmessage = (event:any) =>{
-  //const {userId,name,color,from,to} = event.data;
+//  if(!socket) return;
+//  socket.onmessage = (event:any) =>{
+//   //const {userId,name,color,from,to} = event.data;
 
-  // storing these above cusor stuff to remoteCursor state.
-  // setRemoteCursor((prev:any)=>{
-  //   ...prev,
-  //   [userId]:{from,to,color,name}
-  // })
- }
+//   // storing these above cusor stuff to remoteCursor state.
+//   // setRemoteCursor((prev:any)=>{
+//   //   ...prev,
+//   //   [userId]:{from,to,color,name}
+//   // })
+//  }
 
   const editor = useEditor({
     extensions: [StarterKit], // Basic formatting (bold, italic, lists, etc.)
@@ -93,7 +95,7 @@ const TextEditor2: React.FC = () => {
     }
   }
 );
-  
+
 
   return (
     <div>
