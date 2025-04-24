@@ -83,9 +83,10 @@ const TextEditor: React.FC = () => {
     },
     onSelectionUpdate:({editor})=>{
       const {from,to}:any = editor.state.selection;
-
+      console.log("from",from)
+      console.log("to",to)
       socket?.send(JSON.stringify({
-        type:"cursor_update",
+        type:"cursor-update-sender",
         userId:"xuz",
         name:"radod",
         color:"red",
