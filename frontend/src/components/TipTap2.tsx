@@ -122,7 +122,15 @@ const TextEditor2: React.FC = () => {
     }
   }
 );
+useEffect(() => {
+  if (!editor) return
 
+  editor.view.dispatch(
+    editor.view.state.tr.setMeta('remoteCursorPlugin', {
+      cursors: remoteCursors,
+    })
+  )
+}, [remoteCursors])
 
   return (
     <div>

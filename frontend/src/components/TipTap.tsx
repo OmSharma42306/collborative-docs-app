@@ -107,7 +107,7 @@ const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number
       socket?.send(JSON.stringify({
         type:"cursor-update-sender",
         userId:"xuz",
-        name:"radod",
+        name:"Omya",
         color:"Blue",
         from,
         to,
