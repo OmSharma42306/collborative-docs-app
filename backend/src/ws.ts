@@ -31,11 +31,8 @@ export function initWs(){
                 ws.send(JSON.stringify({msg:"Connection Established."}))
             }else if(msg.type === "receiver"){
                 const roomId = msg.roomId;
-                console.log("HIIIIIIIIIII")
-                //console.log("ROOOOOOOOO",roomId)
                 const existingSession = sessions.get(roomId);
-                //console.log("Existing Session: ",existingSession)
-                // console.log("Sessions: ",sessions);
+                
                 if(!existingSession){
                     // todo sendign socket message that sender is not been initialized.
                     console.log("Sender is not Ready...")
