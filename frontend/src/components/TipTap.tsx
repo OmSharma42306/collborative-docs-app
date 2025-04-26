@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
-import { RemoteCursorPlugin } from "./utils/remote-cursor-plugin";
+import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
  
 //import "../styles/Editor.css"; // Add basic styles
 
@@ -12,7 +12,9 @@ const TextEditor: React.FC = () => {
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
   // const [remoteCursors,setRemoteCursors] = useState<[]>([]);
-  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+//  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+
 
   // useeffect for socket initialization.
   
@@ -65,16 +67,25 @@ const TextEditor: React.FC = () => {
       if(type === "receiverData"){
         editor?.commands.setContent(`<p>${data}</p>`);
       }else if(type === "receiverCursor"){
-
+        const {userId,name,from,to,color}:any = data;
+        console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+        console.log(userId,name,from,to)
+        setRemoteCursors(prev =>({
+          ...prev,
+          [userId]:{from,to,name,color}
+        }))
+        
       }
 
     }
   }
   
-
+  
   const editor = useEditor({
     extensions: [StarterKit,
-      //RemoteCursorPlugin()
+      RemoteCursorExtension.configure({
+        cursors:remoteCursors,
+      })
     ], // Basic formatting (bold, italic, lists, etc.)
     content: "<p>Start writing...</p>", // Initial content
     onUpdate: ({editor}) => {
@@ -97,7 +108,7 @@ const TextEditor: React.FC = () => {
         type:"cursor-update-sender",
         userId:"xuz",
         name:"radod",
-        color:"red",
+        color:"Blue",
         from,
         to,
       }))
@@ -105,6 +116,18 @@ const TextEditor: React.FC = () => {
     }
   }
 );
+
+useEffect(() => {
+  if (!editor) return
+
+  editor.view.dispatch(
+    editor.view.state.tr.setMeta('remoteCursorPlugin', {
+      cursors: remoteCursors,
+    })
+  )
+}, [remoteCursors])
+
+
   return (
     <div>
       <button onClick={generateRoomId}>Create Room Id</button>

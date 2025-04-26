@@ -2,7 +2,8 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import "../styles/Editor.css"; // Add basic styles
-import {RemoteCursorPlugin} from "./utils/remote-cursor-plugin"
+import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
+//import {RemoteCursorPlugin} from "./utils/remote-cursor-plugin"
 
 const TextEditor2: React.FC = () => {
   
@@ -10,7 +11,9 @@ const TextEditor2: React.FC = () => {
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
-  const [remoteCursors,setRemoteCursors]  = useState<any>([]);
+  //const [remoteCursors,setRemoteCursors]  = useState<any>([]);
+  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+
   // useeffect for socket initialization.
   
   useEffect(()=>{
@@ -58,6 +61,13 @@ const TextEditor2: React.FC = () => {
     }else if(type === "senderCursor"){
       console.log("i am inside the cursor")
       console.log(data);
+      const {userId,name,from,to,color}:any = data;
+        console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+        console.log(userId,name,from,to)
+        setRemoteCursors(prev =>({
+          ...prev,
+          [userId]:{from,to,name,color}
+        }))
     }
 
     // if(type === "senderCursor"){
@@ -81,7 +91,9 @@ const TextEditor2: React.FC = () => {
 //  }
 
   const editor = useEditor({
-    extensions: [StarterKit], // Basic formatting (bold, italic, lists, etc.)
+    extensions: [StarterKit,RemoteCursorExtension.configure({
+      cursors:remoteCursors
+    })], // Basic formatting (bold, italic, lists, etc.)
     content: "<p>Start writing...</p>", // Initial content
     onUpdate: ({editor}) => {
         // get content in JSON format.
@@ -103,7 +115,7 @@ const TextEditor2: React.FC = () => {
         type:"cursor-update-receiver",
         userId:"receiver",
         name:"Sagar Sharma",
-        color:"blue",
+        color:"Blue",
         from,
         to,
       }))
