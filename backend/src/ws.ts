@@ -73,7 +73,7 @@ export function initWs(){
                 console.log("I am receiver cursor stuff.")
                 console.log(msg)
                 const {userId,name,color,from,to} = msg;
-                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",data:{userId:userId,name:name,from:from,to:to,color:color}}));
+                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",type:"receiverCursor",data:{userId:userId,name:name,from:from,to:to,color:color}}));
             }
 
         })
