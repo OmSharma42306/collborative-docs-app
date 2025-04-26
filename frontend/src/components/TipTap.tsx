@@ -62,8 +62,9 @@ const TextEditor: React.FC = () => {
       
       setRoomCreated(true);
 
-      editor?.commands.setContent(`<p>${data}</p>`);
-
+      if(type === "receiverData"){
+        editor?.commands.setContent(`<p>${data}</p>`);
+      }
     }
   }
   
