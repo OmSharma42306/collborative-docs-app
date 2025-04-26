@@ -64,7 +64,10 @@ const TextEditor: React.FC = () => {
 
       if(type === "receiverData"){
         editor?.commands.setContent(`<p>${data}</p>`);
+      }else if(type === "receiverCursor"){
+
       }
+
     }
   }
   

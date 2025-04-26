@@ -66,14 +66,14 @@ export function initWs(){
                 console.log("Sender Cursor points")
                 console.log(msg);
                 
-                //getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor",type:"senderCursor",data:{userId:userId,from:from,to:to,name:name,color:color}}));
+                getSenderSocket?.receiver?.send(JSON.stringify({msg:"senderCursor",type:"senderCursor",data:{userId:userId,from:from,to:to,name:name,color:color}}));
             }else if(msg.type === "cursor-update-receiver"){
                 const getReceiverSocket = getSessionBySocket(ws);
                 console.log("Gotten receiver Socket for Cursor Update");
                 console.log("I am receiver cursor stuff.")
                 console.log(msg)
                 const {userId,name,color,from,to} = msg;
-                //getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",userId:userId,name:name,from:from,to:to,color:color}));
+                getReceiverSocket?.sender?.send(JSON.stringify({msg:"receiverCursor",data:{userId:userId,name:name,from:from,to:to,color:color}}));
             }
 
         })

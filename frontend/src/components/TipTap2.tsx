@@ -55,6 +55,9 @@ const TextEditor2: React.FC = () => {
 
     if(type === "senderData"){
       editor?.commands.setContent(`<p>${data}</p>`)
+    }else if(type === "senderCursor"){
+      console.log("i am inside the cursor")
+      console.log(data);
     }
 
     // if(type === "senderCursor"){
