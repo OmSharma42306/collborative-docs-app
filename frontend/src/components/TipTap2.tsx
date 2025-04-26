@@ -10,7 +10,7 @@ const TextEditor2: React.FC = () => {
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
-  const [remoteCursor,setRemoteCursor]  = useState<[]>([]);
+  const [remoteCursors,setRemoteCursors]  = useState<any>([]);
   // useeffect for socket initialization.
   
   useEffect(()=>{
@@ -43,12 +43,24 @@ const TextEditor2: React.FC = () => {
     console.log(event.data);
     const {msg,data,type}:{msg:string,data:string,type:string} = JSON.parse(event.data);
     
-    if(type === "connection-establish"){
-      console.log("i am inside the co")
-      setRoomCreated(true);
+    // if(type === "connection-establish"){
+    //   console.log("i am inside the co")
+    //   setRoomCreated(true);
+    //   editor?.commands.setContent(`<p>${data}</p>`)
+    // }else if(type === "senderCursor"){
+    //   console.log("i am inside cursor stuff");
+    //   console.log(data)
+    // }
+    setRoomCreated(true);
+
+    if(type === "senderData"){
       editor?.commands.setContent(`<p>${data}</p>`)
     }
-    
+
+    // if(type === "senderCursor"){
+    //   console.log("i am inside cursor stuff");
+    //   console.log(data)
+    //    }
 
   }
  })

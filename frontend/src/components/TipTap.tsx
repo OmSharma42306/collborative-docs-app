@@ -1,6 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
+import { RemoteCursorPlugin } from "./utils/remote-cursor-plugin";
  
 //import "../styles/Editor.css"; // Add basic styles
 
@@ -10,6 +11,9 @@ const TextEditor: React.FC = () => {
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
+  // const [remoteCursors,setRemoteCursors] = useState<[]>([]);
+  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+
   // useeffect for socket initialization.
   
   function generateRoomId(){
@@ -50,24 +54,24 @@ const TextEditor: React.FC = () => {
 
   if(socket){
     socket.onmessage = async (event:any) =>{
-      const {msg,data}:{msg:string,data:string} = JSON.parse(event.data);
+      const {msg,data,type}:{msg:string,data:string,type:string} = JSON.parse(event.data);
       console.log(event.data);
       console.log(msg)
       console.log(data)
       console.log("data set")
       
-      setText(data);
       setRoomCreated(true);
 
       editor?.commands.setContent(`<p>${data}</p>`);
-      
-    
+
     }
   }
   
 
   const editor = useEditor({
-    extensions: [StarterKit], // Basic formatting (bold, italic, lists, etc.)
+    extensions: [StarterKit,
+      //RemoteCursorPlugin()
+    ], // Basic formatting (bold, italic, lists, etc.)
     content: "<p>Start writing...</p>", // Initial content
     onUpdate: ({editor}) => {
         // get content in JSON format.
