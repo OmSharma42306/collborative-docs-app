@@ -15,7 +15,6 @@ router.post("/create-doc",authMiddleware,async(req:authRequest,res:Response)=>{
 
     const {success} = createDocument.safeParse({documentName,content});
     const userId = req.userId;
-    console.log("userid from createdoc",userId)
     if(!success){
         res.json({msg:"Invalid Format!"});
         return;
@@ -34,7 +33,6 @@ router.post("/create-doc",authMiddleware,async(req:authRequest,res:Response)=>{
 router.post("/delete-doc",authMiddleware,async(req:authRequest,res:Response)=>{
     const documentName = req.body.documentName;
     const userId = req.body.userId;
-    console.log("userid from delete doc",userId)
     const {success} = createDocument.safeParse({documentName});
     if(!success){
         res.json({msg:"Invalid Document Format!"});
@@ -59,12 +57,10 @@ router.post("/delete-doc",authMiddleware,async(req:authRequest,res:Response)=>{
 
 router.get("/get-all-docs",authMiddleware,async(req:authRequest,res:Response)=>{
     const userId = req.userId;
-    console.log("User id from ge",userId)
     try{
         // It replaces the user ID with the full user object. Without it, user will just be the ObjectId.
         // If you don’t need the full user details and just want to filter by ID, you can skip .populate().
         const allDocs = await documentModel.find({userId:userId})
-        console.log("all docs",allDocs);
         res.json({allDocs:allDocs});
         
     }catch(error){
