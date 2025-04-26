@@ -9,7 +9,7 @@ interface sockets{
     
 }
 
- 
+
 // const sessions = new Map<string,{sender:WebSocket | null,receiver:WebSocket| null}>()
 const sessions = new Map<any,sockets>();
 export function initWs(){
