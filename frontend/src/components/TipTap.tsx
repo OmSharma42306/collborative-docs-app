@@ -80,7 +80,7 @@ const TextEditor: React.FC = () => {
   if(socket){
     socket.onmessage = async (event:any) =>{
       const {msg,data,type}:SocketData= JSON.parse(event.data);
-      
+      console.log(msg);
       setRoomCreated(true);
 
       if(type === "receiverData"){

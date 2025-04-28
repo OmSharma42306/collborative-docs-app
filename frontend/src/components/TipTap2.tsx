@@ -74,7 +74,7 @@ const TextEditor2: React.FC = () => {
   socket.onmessage = (event:any) =>{
     console.log(event.data);
     const {msg,data,type}:SocketData = JSON.parse(event.data);
-    
+    console.log(msg);
     setRoomCreated(true);
 
     if(type === "senderData"){

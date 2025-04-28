@@ -20,6 +20,7 @@ export const RemoteCursorExtension = Extension.create({
         state: {
           init: () => DecorationSet.empty,
           apply: (tr, old, oldState, newState) => {
+            console.log(old,oldState)
             //const cursors = tr.getMeta(pluginKey)?.cursors ?? this.options.cursors
             const cursors = tr.getMeta('remoteCursorPlugin')?.cursors ?? this.options.cursors
 
