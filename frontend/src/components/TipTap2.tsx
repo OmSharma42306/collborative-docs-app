@@ -3,10 +3,27 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import "../styles/Editor.css"; // Add basic styles
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
-//import {RemoteCursorPlugin} from "./utils/remote-cursor-plugin"
+
+// Socket Messages and Data types
+
+interface SocketData{
+  msg:string;
+  data:CursorData;
+  type:string;
+}
+
+// websocket incomming data types
+interface CursorData{
+  userId:string;
+  name:string;
+  from:number;
+  to:number;
+  color:string;
+}
+
 
 // todo declaring just for test , later getting dynamically the name.
-const myUserId = "sagya";
+const myUserId:string = "sagya";
 
 const TextEditor2: React.FC = () => {
   
@@ -14,7 +31,6 @@ const TextEditor2: React.FC = () => {
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
-  //const [remoteCursors,setRemoteCursors]  = useState<any>([]);
   const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
 
   // useeffect for socket initialization.
@@ -38,23 +54,26 @@ const TextEditor2: React.FC = () => {
     // for when the text state changes the socket will send an data to ws server.
   },[]);
 
+  // Sending Edits event to WebSocket Server through Sockets.
   useEffect(()=>{
     console.log(text);
     socket?.send(JSON.stringify({type:"receiver-edit",data:text}))
   },[text])
 
+
  useEffect(()=>{
   if(!socket) return;
   socket.onmessage = (event:any) =>{
     console.log(event.data);
-    const {msg,data,type}:{msg:string,data:string,type:string} = JSON.parse(event.data);
+    const {msg,data,type}:SocketData = JSON.parse(event.data);
     
     setRoomCreated(true);
 
     if(type === "senderData"){
       editor?.commands.setContent(`<p>${data}</p>`)
     }else if(type === "senderCursor" || type === "receiverCursor"){
-      const {userId,name,from,to,color}:any = data;
+      const {userId,name,from,to,color}:CursorData = data;
+      
       if(userId !== myUserId){
         setRemoteCursors(prev=>({
           ...prev,
@@ -62,20 +81,6 @@ const TextEditor2: React.FC = () => {
         }))
       }
     }
-    
-    // else if(type === "senderCursor"){
-    //   console.log("i am inside the cursor")
-    //   console.log(data);
-    //   const {userId,name,from,to,color}:any = data;
-    //     console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-    //     console.log(userId,name,from,to)
-    //     setRemoteCursors(prev =>({
-    //       ...prev,
-    //       [userId]:{from,to,name,color}
-    //     }))
-    // }
-
-  
   }
  })
 
@@ -103,7 +108,7 @@ const TextEditor2: React.FC = () => {
       socket?.send(JSON.stringify({
         type:"cursor-update-receiver",
         userId:"sagya",
-        name:"Sagar Sharma",
+        name:"Sagar",
         color:"Blue",
         from,
         to,
@@ -133,8 +138,6 @@ useEffect(() => {
 {roomCreated?<div className="editor-container">
       <EditorContent editor={editor} />
     </div>:""}
-
-    
     </div>
   );
 };
