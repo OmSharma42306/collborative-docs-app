@@ -28,6 +28,7 @@ interface CursorData{
   color:string;
 }
 
+const host = import.meta.env.VITE_HOST
 
 // todo declaring just for test , later getting dynamically the name.
 const myUserId:string = "sagya";
@@ -43,7 +44,7 @@ const TextEditor2: React.FC = () => {
   // useeffect for socket initialization.
   
   useEffect(()=>{
-    const socket = new WebSocket(`ws://localhost:8080/${roomId}`);
+    const socket = new WebSocket(`ws://${host}:8080/${roomId}`);
     
     if(!socket || socket.readyState !== WebSocket.OPEN){
       console.log("Sockets are Not Connected!");
@@ -63,9 +64,8 @@ const TextEditor2: React.FC = () => {
 
   // Sending Edits event to WebSocket Server through Sockets.
   useEffect(()=>{
-
-    socket?.send(JSON.stringify({type:"receiver-edit",data:text}))
     
+    socket?.send(JSON.stringify({type:"receiver-edit",data:text}))
   },[text])
 
 

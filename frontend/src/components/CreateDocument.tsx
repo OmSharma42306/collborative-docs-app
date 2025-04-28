@@ -35,12 +35,12 @@ import { useState } from "react"
 import axios from "axios";
 import { Code2, FileText, Plus } from 'lucide-react';
 const token = localStorage.getItem("token");
-
+const host = import.meta.env.VITE_HOST
 export default function CreateDocument(){
     const [documentName,setDocumentName] = useState<string>("");
 
     async function handleCreateDocument(){
-        const response = await axios.post("http://localhost:3000/api/v1/docs/create-doc",{documentName:documentName},
+        const response = await axios.post(`http://${host}:3000/api/v1/docs/create-doc`,{documentName:documentName},
            { headers: {
                 Authorization : `Bearer ${token}`
               }

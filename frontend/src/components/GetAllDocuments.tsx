@@ -72,14 +72,16 @@ import { useNavigate } from "react-router-dom";
 import { Code2, FileText, Plus, Loader2 } from 'lucide-react';
 // import { documentNameAtom } from "../recoil/state/documentName";
 //import { useRecoilState } from "recoil";
+const host = import.meta.env.VITE_HOST
 const token = localStorage.getItem("token")
+
 export default function GetAllDocuments(){
     const [allDocuments,setAllDocuments] = useState<[]>([]);
     // const [docsName,setDocsName] = useRecoilState(documentNameAtom)
     const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
-        const response = await axios.get("http://localhost:3000/api/v1/docs/get-all-docs",{
+        const response = await axios.get(`http://${host}:3000/api/v1/docs/get-all-docs`,{
             headers:{
                 Authorization:`Bearer ${token}`
             }

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Mail, Lock, User, UserPlus, ArrowRight } from 'lucide-react';
 import Input from '../common/Input';
 import Button from '../common/Button';
-
+const host = import.meta.env.VITE_HOST;
 export default function SignupForm() {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -21,7 +21,7 @@ export default function SignupForm() {
     setIsLoading(true);
     
     try {
-      await axios.post('http://localhost:3000/api/v1/user/signup', {
+      await axios.post(`http://${host}:3000/api/v1/user/signup`, {
         name: name,
         email: email,
         password: password

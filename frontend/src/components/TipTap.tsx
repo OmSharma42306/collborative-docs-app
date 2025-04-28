@@ -28,6 +28,7 @@ interface CursorData{
 }
 
 
+const host = import.meta.env.VITE_HOST
 const myUserId:string = "omya";
 
 const TextEditor: React.FC = () => {
@@ -47,7 +48,8 @@ const TextEditor: React.FC = () => {
   }
   
   useEffect(()=>{
-    const socket = new WebSocket(`ws://localhost:8080/${roomId}`);
+    const socket = new WebSocket(`ws://${host}:8080/${roomId}`);
+    
     
     if(!socket || socket.readyState !== WebSocket.OPEN){
       console.log("Sockets are Not Connected!");
