@@ -11,8 +11,7 @@ async function authMiddleware(req:authRequest,res:Response,next:NextFunction){
     const my_secretkey:string = process.env.JWT_SECRET || "";
     const x = req.headers.authorization;
     const authHeader = req.headers["authorization"];
-    console.log("auth headers",authHeader)
-    console.log("x",x)
+    
     if(!authHeader || !authHeader.startsWith("Bearer ")){
         res.status(401).json({msg:"Headers Missing!"})
         return;

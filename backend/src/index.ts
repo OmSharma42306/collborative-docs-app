@@ -8,7 +8,6 @@ const PORT = 3000;
 
 // User Related Stuff..
 
-// todo add to the socket starting at after login page.
 initWs();
 
 app.use(cors());
