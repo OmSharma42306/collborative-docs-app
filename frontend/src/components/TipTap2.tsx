@@ -12,6 +12,13 @@ interface SocketData{
   type:string;
 }
 
+// interface for Position of Cursors
+
+interface CursorPostions{
+  from:number;
+  to:number
+}
+
 // websocket incomming data types
 interface CursorData{
   userId:string;
@@ -56,8 +63,9 @@ const TextEditor2: React.FC = () => {
 
   // Sending Edits event to WebSocket Server through Sockets.
   useEffect(()=>{
-    console.log(text);
+
     socket?.send(JSON.stringify({type:"receiver-edit",data:text}))
+    
   },[text])
 
 
@@ -84,6 +92,7 @@ const TextEditor2: React.FC = () => {
   }
  })
 
+ // Editor Stuff.
   const editor = useEditor({
     extensions: [StarterKit,RemoteCursorExtension.configure({
       cursors:remoteCursors
@@ -102,9 +111,8 @@ const TextEditor2: React.FC = () => {
         setText(extractedContent);
     },
     onSelectionUpdate:({editor})=>{
-      const {from,to}:any = editor.state.selection;
-      console.log("Receiver Side From : ",from)
-      console.log("Receiver Side to : ",to)
+      
+      const {from,to}:CursorPostions = editor.state.selection;
       socket?.send(JSON.stringify({
         type:"cursor-update-receiver",
         userId:"sagya",
