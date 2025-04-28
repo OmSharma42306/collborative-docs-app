@@ -5,6 +5,9 @@ import "../styles/Editor.css"; // Add basic styles
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
 //import {RemoteCursorPlugin} from "./utils/remote-cursor-plugin"
 
+// todo declaring just for test , later getting dynamically the name.
+const myUserId = "sagya";
+
 const TextEditor2: React.FC = () => {
   
   const [socket,setSocket] = useState<WebSocket>();
@@ -46,49 +49,35 @@ const TextEditor2: React.FC = () => {
     console.log(event.data);
     const {msg,data,type}:{msg:string,data:string,type:string} = JSON.parse(event.data);
     
-    // if(type === "connection-establish"){
-    //   console.log("i am inside the co")
-    //   setRoomCreated(true);
-    //   editor?.commands.setContent(`<p>${data}</p>`)
-    // }else if(type === "senderCursor"){
-    //   console.log("i am inside cursor stuff");
-    //   console.log(data)
-    // }
     setRoomCreated(true);
 
     if(type === "senderData"){
       editor?.commands.setContent(`<p>${data}</p>`)
-    }else if(type === "senderCursor"){
-      console.log("i am inside the cursor")
-      console.log(data);
+    }else if(type === "senderCursor" || type === "receiverCursor"){
       const {userId,name,from,to,color}:any = data;
-        console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-        console.log(userId,name,from,to)
-        setRemoteCursors(prev =>({
+      if(userId !== myUserId){
+        setRemoteCursors(prev=>({
           ...prev,
           [userId]:{from,to,name,color}
         }))
+      }
     }
+    
+    // else if(type === "senderCursor"){
+    //   console.log("i am inside the cursor")
+    //   console.log(data);
+    //   const {userId,name,from,to,color}:any = data;
+    //     console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+    //     console.log(userId,name,from,to)
+    //     setRemoteCursors(prev =>({
+    //       ...prev,
+    //       [userId]:{from,to,name,color}
+    //     }))
+    // }
 
-    // if(type === "senderCursor"){
-    //   console.log("i am inside cursor stuff");
-    //   console.log(data)
-    //    }
-
+  
   }
  })
-
- // socket event for remote side cursor!
-//  if(!socket) return;
-//  socket.onmessage = (event:any) =>{
-//   //const {userId,name,color,from,to} = event.data;
-
-//   // storing these above cusor stuff to remoteCursor state.
-//   // setRemoteCursor((prev:any)=>{
-//   //   ...prev,
-//   //   [userId]:{from,to,color,name}
-//   // })
-//  }
 
   const editor = useEditor({
     extensions: [StarterKit,RemoteCursorExtension.configure({
@@ -113,7 +102,7 @@ const TextEditor2: React.FC = () => {
       console.log("Receiver Side to : ",to)
       socket?.send(JSON.stringify({
         type:"cursor-update-receiver",
-        userId:"receiver",
+        userId:"sagya",
         name:"Sagar Sharma",
         color:"Blue",
         from,

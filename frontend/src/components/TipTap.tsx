@@ -2,7 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
- 
+const myUserId = "omya";
 //import "../styles/Editor.css"; // Add basic styles
 
 const TextEditor: React.FC = () => {
@@ -11,9 +11,7 @@ const TextEditor: React.FC = () => {
   const [text,setText] = useState<string|null>("");
   const [roomId,setRoomId] = useState<string>("");
   const [roomCreated,setRoomCreated] = useState<Boolean>(false);
-  // const [remoteCursors,setRemoteCursors] = useState<[]>([]);
-//  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
-const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
+  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number, to: number, color: string, name: string }>>({});
 
 
   // useeffect for socket initialization.
@@ -66,16 +64,24 @@ const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number
 
       if(type === "receiverData"){
         editor?.commands.setContent(`<p>${data}</p>`);
-      }else if(type === "receiverCursor"){
+      }else if(type === "senderCursor" || type === "receiverCursor"){
         const {userId,name,from,to,color}:any = data;
-        console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-        console.log(userId,name,from,to)
-        setRemoteCursors(prev =>({
-          ...prev,
-          [userId]:{from,to,name,color}
-        }))
-        
+        if(userId !== myUserId){
+          setRemoteCursors(prev=>({
+            ...prev,
+            [userId]:{from,to,name,color}
+          }))
+        }
       }
+      // else if(type === "receiverCursor"){
+      //   const {userId,name,from,to,color}:any = data;
+      //   console.log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+      //   console.log(userId,name,from,to)
+      //   setRemoteCursors(prev =>({
+      //     ...prev,
+      //     [userId]:{from,to,name,color}
+      //   }))
+      // }
 
     }
   }
@@ -106,7 +112,7 @@ const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number
       console.log("to",to)
       socket?.send(JSON.stringify({
         type:"cursor-update-sender",
-        userId:"xuz",
+        userId:"omya",
         name:"Omya",
         color:"Blue",
         from,
