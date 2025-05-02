@@ -2,9 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
-import '../@/styles/_keyframe-animations.scss'
-import '../@/styles/_variables.scss'
-import {} from "../../@/components/tiptap-templates/simple/simple-editor"
+
 
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -176,6 +174,7 @@ useEffect(() => {
     
     {roomCreated?<div className="editor-container">
       <EditorContent  editor={editor} />
+      
 
     </div>:""}
     </div>
