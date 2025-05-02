@@ -2,6 +2,13 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
+import '../@/styles/_keyframe-animations.scss'
+import '../@/styles/_variables.scss'
+import {} from "../../@/components/tiptap-templates/simple/simple-editor"
+
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
 
 // Socket Messages and Data types
 
@@ -100,12 +107,22 @@ const TextEditor: React.FC = () => {
   
   // Editor Area Stuff.
   const editor = useEditor({
-    extensions: [StarterKit,
+    extensions: [StarterKit,Document,Paragraph,Text,
+
       RemoteCursorExtension.configure({
         cursors:remoteCursors,
       })
     ], // Basic formatting (bold, italic, lists, etc.)
-    content: "<p>Start writing...</p>", // Initial content
+    content:
+    // "<p>Start writing...</p>", // Initial content
+    `
+    <p>
+      This is a radically reduced version of Tiptap. It has support for a document, with paragraphs and text. That’s it. It’s probably too much for real minimalists though.
+    </p>
+    <p>
+      The paragraph extension is not really required, but you need at least one node. Sure, that node can be something different.
+    </p>
+  `,
     onUpdate: ({editor}) => {
         // get content in JSON format.
         const content = editor.getJSON();
