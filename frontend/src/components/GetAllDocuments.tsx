@@ -102,6 +102,26 @@ export default function GetAllDocuments(){
         
     }
 
+    async function handleDeleteDocument(documentName:string){
+        try{
+            const response = await axios.post(`http://${host}:3000/api/v1/docs/delete-doc`,{documentName},{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                },
+                
+            })
+            console.log(response.data.msg);
+            alert(response.data.msg);
+
+        }catch(error){
+            console.error(error);
+        }
+        
+
+        
+    }
+
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
             <header className="border-b border-slate-700">
@@ -148,6 +168,15 @@ export default function GetAllDocuments(){
                                         Open Document
                                     </button>
                                 </div>
+                                <div className="bg-slate-700/50 px-6 py-3">
+                                    <button 
+                                        onClick={() => handleDeleteDocument(value.documentName)}
+                                        className="w-full text-blue-400 hover:text-blue-300 transition font-medium"
+                                    >
+                                        Delete Document
+                                    </button>
+                                </div>
+ 
                             </div>
                         ))
                     ) : (
