@@ -18,7 +18,7 @@ router.post("/signup",async(req:Request,res:Response)=>{
     // validation through zod
     const {success} = signupInput.safeParse(req.body);
     if(!success){
-        res.json({msg:"Invalid Inputs!"});
+        res.status(400).json({msg:"Invalid Inputs!"});
         return;
     }
 
@@ -30,7 +30,7 @@ router.post("/signup",async(req:Request,res:Response)=>{
         // todo do a database call and put the credentials.
         const checkExisting = await userModel.findOne({email:email});
         if(checkExisting){
-            res.json({msg:"User Already Exists!"});
+            res.status(400).json({msg:"User Already Exists!"});
             return;
         }
 
@@ -47,7 +47,7 @@ router.post("/signup",async(req:Request,res:Response)=>{
 
 
     }catch(error){
-        res.json({msg:error})
+        res.status(400).json({msg:error})
         return;
     }
 
@@ -59,7 +59,7 @@ router.post('/login',async (req:Request,res:Response)=>{
 
 const {success} = signinInput.safeParse(req.body);
 if(!success){
-    res.json({msg:"Invalid Inputs!"});
+    res.status(400).json({msg:"Invalid Inputs!"});
     return;
 }
 const email:string = req.body.email;
@@ -68,12 +68,12 @@ const password:string = req.body.password;
 try{
     const checkUserExists = await userModel.findOne({email:email});
     if(!checkUserExists){
-        res.json({msg:"User not exists, first create signup!"});
+        res.status(400).json({msg:"User not exists, first create signup!"});
         return;
     }
 
     if(password !== checkUserExists?.password){
-        res.json({msg:"Invalid Credentials!"})
+        res.status(400).json({msg:"Invalid Credentials!"})
         return;
     }
 
