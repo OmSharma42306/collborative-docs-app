@@ -1,6 +1,6 @@
 import express from "express";
 import { Request,Response } from "express";
-import { createDocument } from "../zodvalidation";
+import { createDocument, deleteDocument } from "../zodvalidation";
 import { documentModel } from "../models/documentModel"; 
 import authMiddleware from "../middlewares/middleware";
 const router = express.Router();
@@ -32,8 +32,9 @@ router.post("/create-doc",authMiddleware,async(req:authRequest,res:Response)=>{
 
 router.post("/delete-doc",authMiddleware,async(req:authRequest,res:Response)=>{
     const documentName = req.body.documentName;
-    const userId = req.body.userId;
-    const {success} = createDocument.safeParse({documentName});
+    const userId = req.userId;
+    const {success} = deleteDocument.safeParse({documentName});
+    
     if(!success){
         res.json({msg:"Invalid Document Format!"});
         return;
