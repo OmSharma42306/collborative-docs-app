@@ -16,3 +16,7 @@ export const createDocument = z.object({
     content:z.string().optional()
 });
 
+export const deleteDocument = z.object({
+    documentName : z.string()
+})
+
