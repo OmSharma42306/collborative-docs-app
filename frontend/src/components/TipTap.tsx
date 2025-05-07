@@ -52,27 +52,31 @@ const TextEditor: React.FC = () => {
     setRoomId(randomNumber);
   }
   
-  useEffect(()=>{
-    const socket = new WebSocket(`wss://${host}/${roomId}`);
-    
-    
-    if(!socket || socket.readyState !== WebSocket.OPEN){
-      console.log("Sockets are Not Connected!");
-    }
+  if(roomId){
+    useEffect(()=>{
+      const socket = new WebSocket(`wss://${host}/${roomId}`);
+      
+      
+      if(!socket || socket.readyState !== WebSocket.OPEN){
+        console.log("Sockets are Not Connected!");
+      }
+  
+      socket.onopen = () =>{
+        console.log("Sockets are Connected!");
+        setSocket(socket);
+      }
+      
+  
+      
+      return ()=>{
+        socket.close();
+      }
+  
+    },[]);
+  
+  }
 
-    socket.onopen = () =>{
-      console.log("Sockets are Connected!");
-      setSocket(socket);
-    }
-    
-
-    
-    return ()=>{
-      socket.close();
-    }
-
-  },[]);
-
+  
   // Sending Edits event to WebSocket Server through Sockets.
   useEffect(()=>{
     if(!socket || socket.readyState !== WebSocket.OPEN){
