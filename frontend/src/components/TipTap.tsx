@@ -52,7 +52,8 @@ const TextEditor: React.FC = () => {
     setRoomId(randomNumber);
   }
   
-  if(roomId){
+  if(roomId.length>0){
+    console.log("TRIGGERD")
     useEffect(()=>{
       const socket = new WebSocket(`wss://${host}/${roomId}`);
       
