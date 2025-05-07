@@ -52,12 +52,12 @@ const TextEditor: React.FC = () => {
     setRoomId(randomNumber);
   }
   
-  if(roomId.length>0){
+  
     console.log("TRIGGERD")
     useEffect(()=>{
       const socket = new WebSocket(`wss://${host}/${roomId}`);
       
-      
+      console.log("RoomID",roomId);
       if(!socket || socket.readyState !== WebSocket.OPEN){
         console.log("Sockets are Not Connected!");
       }
@@ -73,9 +73,9 @@ const TextEditor: React.FC = () => {
         socket.close();
       }
   
-    },[]);
+    },[roomId]);
   
-  }
+  
 
   
   // Sending Edits event to WebSocket Server through Sockets.
