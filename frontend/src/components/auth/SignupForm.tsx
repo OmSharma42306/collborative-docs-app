@@ -21,7 +21,7 @@ export default function SignupForm() {
     setIsLoading(true);
     
     try {
-      await axios.post(`https://${host}:3000/api/v1/user/signup`, {
+      await axios.post(`https://${host}/api/v1/user/signup`, {
         name: name,
         email: email,
         password: password
