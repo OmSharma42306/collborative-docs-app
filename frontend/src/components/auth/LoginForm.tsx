@@ -20,7 +20,7 @@ export default function LoginForm() {
     setIsLoading(true);
     
     try {
-      const response = await axios.post(`http://${host}:3000/api/v1/user/login`, {
+      const response = await axios.post(`https://${host}:3000/api/v1/user/login`, {
         email: email,
         password: password
       });
