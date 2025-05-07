@@ -44,7 +44,7 @@ const TextEditor2: React.FC = () => {
   // useeffect for socket initialization.
   
   useEffect(()=>{
-    const socket = new WebSocket(`wss://${host}/${roomId}`);
+    const socket = new WebSocket(`wss://${host}/ws/${roomId}`);
     
     if(!socket || socket.readyState !== WebSocket.OPEN){
       console.log("Sockets are Not Connected!");

@@ -55,7 +55,7 @@ const TextEditor: React.FC = () => {
   
     console.log("TRIGGERD")
     useEffect(()=>{
-      const socket = new WebSocket(`wss://${host}/${roomId}`);
+      const socket = new WebSocket(`wss://${host}/ws/${roomId}`);
       
       console.log("RoomID",roomId);
       if(!socket || socket.readyState !== WebSocket.OPEN){
