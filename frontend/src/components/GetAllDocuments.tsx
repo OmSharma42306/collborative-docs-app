@@ -81,7 +81,7 @@ export default function GetAllDocuments(){
     const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
-        const response = await axios.get(`http://${host}:3000/api/v1/docs/get-all-docs`,{
+        const response = await axios.get(`https://${host}/api/v1/docs/get-all-docs`,{
             headers:{
                 Authorization:`Bearer ${token}`
             }
@@ -104,7 +104,7 @@ export default function GetAllDocuments(){
 
     async function handleDeleteDocument(documentName:string){
         try{
-            const response = await axios.post(`http://${host}:3000/api/v1/docs/delete-doc`,{documentName},{
+            const response = await axios.post(`https://${host}/api/v1/docs/delete-doc`,{documentName},{
                 headers:{
                     Authorization:`Bearer ${token}`
                 },
