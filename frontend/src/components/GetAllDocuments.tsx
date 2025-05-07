@@ -111,6 +111,11 @@ export default function GetAllDocuments(){
                 
             })
             console.log(response.data.msg);
+            if(response.status === 200){
+                // todo add a state managment to remove document after deletion without refershing page
+
+
+            }
             alert(response.data.msg);
 
         }catch(error){
@@ -138,7 +143,8 @@ export default function GetAllDocuments(){
                     <h1 className="text-2xl font-bold text-white">All Documents</h1>
                     <button className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition">
                         <Plus size={18} />
-                        <span>New Document</span>
+                        // todo navigate or do an operation to create document.
+                        <span>New Document</span> 
                     </button>
                 </div>
 

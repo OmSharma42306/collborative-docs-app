@@ -40,7 +40,7 @@ export default function CreateDocument(){
     const [documentName,setDocumentName] = useState<string>("");
 
     async function handleCreateDocument(){
-        const response = await axios.post(`http://${host}:3000/api/v1/docs/create-doc`,{documentName:documentName},
+        const response = await axios.post(`https://${host}/api/v1/docs/create-doc`,{documentName:documentName},
            { headers: {
                 Authorization : `Bearer ${token}`
               }
