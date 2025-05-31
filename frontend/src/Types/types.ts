@@ -18,6 +18,16 @@ export interface deleteDocumentType{
     documentName:string;
 }
 
+export interface allDocumentsType{
+    _id : string;
+    userId : string;
+    documentName : string;
+    content : string;
+    createdAt : string;
+    __v: number;
+}
+
+
 // Editor Related Stuff
 export interface SocketData {
   msg: string;
