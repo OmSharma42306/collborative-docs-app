@@ -65,30 +65,17 @@
 
 // new code ui stuff
 
-
-import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Code2, FileText, Plus, Loader2 } from 'lucide-react';
-// import { documentNameAtom } from "../recoil/state/documentName";
-//import { useRecoilState } from "recoil";
-const host = import.meta.env.VITE_HOST
-const token = localStorage.getItem("token")
+import { deleteDocument, getAllDocument } from "../api/api";
 
 export default function GetAllDocuments(){
     const [allDocuments,setAllDocuments] = useState<[]>([]);
-    // const [docsName,setDocsName] = useRecoilState(documentNameAtom)
     const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
-        const response = await axios.get(`https://${host}/api/v1/docs/get-all-docs`,{
-            headers:{
-                Authorization:`Bearer ${token}`
-            }
-        });
-            console.log("Response",response)
-            const data = response.data.allDocs;
-            console.log(data)
+            const data = await getAllDocument();
             setAllDocuments(data);
         }
         fetchAllDocuments();
@@ -97,19 +84,13 @@ export default function GetAllDocuments(){
 
     async function handleOpenDocument(docsName:string){
         
-        // setDocsName(docsName);
         navigate("/sender",{state:{documentName:docsName}});
         
     }
 
     async function handleDeleteDocument(documentName:string){
         try{
-            const response = await axios.post(`https://${host}/api/v1/docs/delete-doc`,{documentName},{
-                headers:{
-                    Authorization:`Bearer ${token}`
-                },
-                
-            })
+            const response : any = await deleteDocument({documentName});
             console.log(response.data.msg);
             if(response.status === 200){
                 // todo add a state managment to remove document after deletion without refershing page

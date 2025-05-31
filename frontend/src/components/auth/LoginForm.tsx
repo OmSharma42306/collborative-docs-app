@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Mail, Lock, LogIn, ArrowRight } from 'lucide-react';
 import Input from '../common/Input';
 import Button from '../common/Button';
-const host = import.meta.env.VITE_HOST
+import { signIn } from '../../api/api';
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>('');
@@ -20,14 +19,19 @@ export default function LoginForm() {
     setIsLoading(true);
     
     try {
-      const response = await axios.post(`https://${host}/api/v1/user/login`, {
-        email: email,
-        password: password
-      });
-      const data = response.data;
+      
+      const data = await signIn({email,password});
+      
       const token = data.token;
       localStorage.setItem('token', token);
-      navigate('/dashboard');
+      if(!token){
+        alert("Invalid Username or Password!")
+      }
+      if(token){
+        navigate('/dashboard');
+      }
+      // ternary would be good.
+      
     } catch (error) {
       console.error(error);
       setError('Invalid email or password. Please try again.');

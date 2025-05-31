@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Mail, Lock, User, UserPlus, ArrowRight } from 'lucide-react';
 import Input from '../common/Input';
 import Button from '../common/Button';
-const host = import.meta.env.VITE_HOST;
+import { signUp } from '../../api/api';
+
+
+
+
 export default function SignupForm() {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -21,11 +24,8 @@ export default function SignupForm() {
     setIsLoading(true);
     
     try {
-      await axios.post(`https://${host}/api/v1/user/signup`, {
-        name: name,
-        email: email,
-        password: password
-      });
+
+      await signUp({name,email,password});
       
       setSuccess(true);
       setTimeout(() => {

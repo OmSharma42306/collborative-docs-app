@@ -44,6 +44,8 @@ const TextEditor: React.FC = () => {
   useEffect(() => {
     if (!roomId) return;
     const socket = new WebSocket(`wss://${host}/ws/${roomId}`);
+    // const socket = new WebSocket(`ws://${host}:8080/${roomId}`);
+
     socket.onopen = () => {
       console.log("Sockets Connected");
       setSocket(socket);

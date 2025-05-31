@@ -32,23 +32,15 @@
 // new code with ui
 
 import { useState } from "react"
-import axios from "axios";
 import { Code2, FileText, Plus } from 'lucide-react';
-const token = localStorage.getItem("token");
-const host = import.meta.env.VITE_HOST
+import { createDocument } from "../api/api";
+
 export default function CreateDocument(){
     const [documentName,setDocumentName] = useState<string>("");
 
     async function handleCreateDocument(){
-        const response = await axios.post(`https://${host}/api/v1/docs/create-doc`,{documentName:documentName},
-           { headers: {
-                Authorization : `Bearer ${token}`
-              }
-            }
-            
-        )
-        const data = response.data;
-        console.log(data);
+        const data = await createDocument({documentName}) ;
+        alert(`${documentName} ${data.msg}`);
     }
 
     return (
