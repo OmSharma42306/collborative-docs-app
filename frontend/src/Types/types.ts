@@ -1,3 +1,4 @@
+// User Crud Stuff
 export interface signUpType{
     name : string;
     email : string;
@@ -15,4 +16,24 @@ export interface createDocumentType{
 
 export interface deleteDocumentType{
     documentName:string;
+}
+
+// Editor Related Stuff
+export interface SocketData {
+  msg: string;
+  data: CursorData;
+  type: string;
+}
+
+export interface CursorData {
+  userId: string;
+  name: string;
+  from: number;
+  to: number;
+  color: string;
+}
+
+export interface CursorPostions {
+  from: number;
+  to: number;
 }

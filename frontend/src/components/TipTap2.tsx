@@ -3,28 +3,11 @@ import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
 import { Bold, Italic, List, Heading1, Heading2, Share2 } from "lucide-react";
-
-interface SocketData {
-  msg: string;
-  data: CursorData;
-  type: string;
-}
-
-interface CursorData {
-  userId: string;
-  name: string;
-  from: number;
-  to: number;
-  color: string;
-}
-
-interface CursorPostions {
-  from: number;
-  to: number;
-}
+import {SocketData,CursorData,CursorPostions} from "../Types/types"
 
 const host = import.meta.env.VITE_HOST;
-const myUserId = "sagya";
+// todo add dynamic user name
+const myUserId = "john";
 
 const TextEditor2: React.FC = () => {
   const [socket, setSocket] = useState<WebSocket>();

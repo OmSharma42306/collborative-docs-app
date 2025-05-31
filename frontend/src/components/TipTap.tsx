@@ -6,28 +6,12 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin"; // Your plugin
 import { Bold, Italic, List, Heading1, Heading2, Users, Share2 } from "lucide-react";
-
-interface SocketData {
-  msg: string;
-  data: CursorData;
-  type: string;
-}
-
-interface CursorData {
-  userId: string;
-  name: string;
-  from: number;
-  to: number;
-  color: string;
-}
-
-interface CursorPostions {
-  from: number;
-  to: number;
-}
+import {SocketData,CursorData,CursorPostions} from "../Types/types"
 
 const host = import.meta.env.VITE_HOST;
-const myUserId = "omya";
+
+// todo add dynamic username
+const myUserId = "prince";
 
 const TextEditor: React.FC = () => {
   const [socket, setSocket] = useState<WebSocket>();
