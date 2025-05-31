@@ -5,7 +5,9 @@ const token = localStorage.getItem("token");
 const sslEndPoint = `https://${host}/api/v1`;
 const localEndPoint = `http://${host}:3000/api/v1`
 
-console.log("FOR TEST PURPOSE : ",localEndPoint);
+if (localEndPoint){
+    console.log("Hi..!");
+}
 
 export async function signUp({name,email,password}:signUpType){
     const response = await axios.post(`${sslEndPoint}/user/signup`, {
