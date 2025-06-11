@@ -1,4 +1,4 @@
-import { Code2, Users, Zap, Globe2, ArrowRight } from 'lucide-react';
+import {  Users, Zap, Globe2, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SyncSpace from './common/SyncSpace';
 function LandingPage() {

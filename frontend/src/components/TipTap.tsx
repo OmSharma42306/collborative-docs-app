@@ -7,7 +7,6 @@ import Text from '@tiptap/extension-text';
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin"; // Your plugin
 import { Bold, Italic, List, Heading1, Heading2, Users, Share2 } from "lucide-react";
 import {SocketData,CursorData,CursorPostions} from "../Types/types"
-import { Code2 } from "lucide-react";
 import SyncSpace from "./common/SyncSpace";
 
 const host = import.meta.env.VITE_HOST;
