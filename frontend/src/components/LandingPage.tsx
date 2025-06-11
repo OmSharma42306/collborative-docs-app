@@ -1,6 +1,6 @@
-
 import { Code2, Users, Zap, Globe2, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import SyncSpace from './common/SyncSpace';
 function LandingPage() {
   const navigate = useNavigate();
   return (
@@ -8,10 +8,8 @@ function LandingPage() {
       {/* Hero Section */}
       <nav className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Code2 className="h-8 w-8 text-blue-400" />
-            <span className="text-2xl font-bold text-white">SyncSpace</span>
-          </div>
+         {/* SyncSpace Icon Component */}
+         <SyncSpace color="white"/>
           <div className="hidden md:flex space-x-10">
             <a href="#features" className="text-gray-300 hover:text-white transition">Features</a>
             <a href="#about" className="text-gray-300 hover:text-white transition">About</a>
@@ -94,10 +92,7 @@ function LandingPage() {
       <footer className="border-t border-slate-800">
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <Code2 className="h-6 w-6 text-blue-400" />
-              <span className="text-xl font-bold text-white">SyncSpace</span>
-            </div>
+            <SyncSpace color='white'/>
             <div className="text-gray-400">
               © 2025 SyncSpace. All rights reserved.
             </div>

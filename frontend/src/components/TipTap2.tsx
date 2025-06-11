@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin";
 import { Bold, Italic, List, Heading1, Heading2, Share2 } from "lucide-react";
 import {SocketData,CursorData,CursorPostions} from "../Types/types"
+import SyncSpace from "./common/SyncSpace";
 
 const host = import.meta.env.VITE_HOST;
 // todo add dynamic user name
@@ -103,7 +104,7 @@ const TextEditor2: React.FC = () => {
     <div className="min-h-screen bg-gray-100 font-sans">
       {/* Header */}
       <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">📝 CollabDocs</h1>
+        <SyncSpace color="black"/>
         <div className="flex items-center gap-3">
           {!roomCreated && (
             <input

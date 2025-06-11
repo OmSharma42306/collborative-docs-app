@@ -6,7 +6,7 @@ export default function EditorSender()    {
     const docsName = location.state?.documentName || "untitled";
     
     return <div className="card">
-     <h1>Document Name : {docsName}</h1>
+     <h1 className="text-2xl font-bold">Document Name : {docsName}</h1>
         <Tiptap />
     </div>
 }

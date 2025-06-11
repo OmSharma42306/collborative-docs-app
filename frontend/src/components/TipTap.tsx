@@ -7,6 +7,8 @@ import Text from '@tiptap/extension-text';
 import { RemoteCursorExtension } from "./utils/remote-cursor-plugin"; // Your plugin
 import { Bold, Italic, List, Heading1, Heading2, Users, Share2 } from "lucide-react";
 import {SocketData,CursorData,CursorPostions} from "../Types/types"
+import { Code2 } from "lucide-react";
+import SyncSpace from "./common/SyncSpace";
 
 const host = import.meta.env.VITE_HOST;
 
@@ -113,7 +115,7 @@ const TextEditor: React.FC = () => {
     <div className="min-h-screen bg-gray-100 font-sans">
       {/* Header */}
       <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">📄 CollabDocs</h1>
+        <SyncSpace color="black"/>
         <div className="flex items-center gap-3">
           {!roomCreated && (
             <button
@@ -140,8 +142,8 @@ const TextEditor: React.FC = () => {
 
       {/* Room Info */}
       {roomId && !roomCreated && (
-        <div className="text-center text-sm text-gray-600 mt-2">
-          Room ID: <code className="bg-gray-200 px-2 py-1 rounded">{roomId}</code>
+        <div className="text-center  text-gray-600 mt-2 text-2xl">
+          Room ID: <code className="bg-gray-200 px-2 py-1 rounded text-3xl">{roomId}</code>
         </div>
       )}
 
