@@ -1,10 +1,9 @@
+import { useRecoilValue } from "recoil";
 import Tiptap from "./TipTap"
-import { useLocation } from "react-router-dom"
+import { docsNameState } from "../recoil/atoms";
 
 export default function EditorSender()    {
-    const location = useLocation();
-    const docsName = location.state?.documentName || "untitled";
-    
+    const docsName = useRecoilValue(docsNameState);
     return <div className="card">
      <h1 className="text-2xl font-bold">Document Name : {docsName}</h1>
         <Tiptap />

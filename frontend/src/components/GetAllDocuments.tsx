@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Code2, FileText, Plus, Loader2 } from 'lucide-react';
 import { deleteDocument, getAllDocument } from "../api/api";
+import { useRecoilState } from "recoil";
+import { docsNameState } from "../recoil/atoms";
 
 export default function GetAllDocuments(){
     const [allDocuments,setAllDocuments] = useState<[]>([]);
+    const [,setDocsName] = useRecoilState(docsNameState);
+
+    
     const navigate = useNavigate();
     useEffect(()=>{
     async function fetchAllDocuments(){
@@ -16,8 +21,8 @@ export default function GetAllDocuments(){
     
 
     async function handleOpenDocument(docsName:string){
-        
-        navigate("/sender",{state:{documentName:docsName}});
+        setDocsName(docsName)
+        navigate("/sender");
         
     }
 
