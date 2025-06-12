@@ -11,16 +11,16 @@ import SyncSpace from "./common/SyncSpace";
 
 const host = import.meta.env.VITE_HOST;
 
-// todo add dynamic username
-const myUserId = "prince";
+const username = localStorage.getItem('username');
+const myUserId = username;
 
 const TextEditor: React.FC = () => {
   const [socket, setSocket] = useState<WebSocket>();
   const [text, setText] = useState<string | null>("");
   const [roomId, setRoomId] = useState<string>("");
   const [roomCreated, setRoomCreated] = useState(false);
-  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number; to: number; color: string; name: string }>>({});
-
+  const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number; to: number; color: string; name: string }>>({});  
+ 
   function generateRoomId() {
     const randomNumber: string = Math.floor(1000000 + Math.random() * 9000000).toString();
     setRoomId(randomNumber);
@@ -73,7 +73,7 @@ const TextEditor: React.FC = () => {
         JSON.stringify({
           type: "cursor-update-sender",
           userId: myUserId,
-          name: "Omya",
+          name: username?.toString(),
           color: "blue",
           from,
           to,

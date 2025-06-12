@@ -10,7 +10,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  
   const navigate = useNavigate();
 
   async function handleLogin(e: React.FormEvent) {
@@ -23,7 +22,11 @@ export default function LoginForm() {
       const data = await signIn({email,password});
       
       const token = data.token;
+      const username = data.username;
+      
       localStorage.setItem('token', token);
+      localStorage.setItem('username',username);
+            
       if(!token){
         alert("Invalid Username or Password!")
       }

@@ -7,8 +7,8 @@ import {SocketData,CursorData,CursorPostions} from "../Types/types"
 import SyncSpace from "./common/SyncSpace";
 
 const host = import.meta.env.VITE_HOST;
-// todo add dynamic user name
-const myUserId = "john";
+const username = localStorage.getItem('username');
+const myUserId = username;
 
 const TextEditor2: React.FC = () => {
   const [socket, setSocket] = useState<WebSocket>();
@@ -16,7 +16,7 @@ const TextEditor2: React.FC = () => {
   const [roomId, setRoomId] = useState<string>("");
   const [roomCreated, setRoomCreated] = useState(false);
   const [remoteCursors, setRemoteCursors] = useState<Record<string, { from: number; to: number; color: string; name: string }>>({});
-
+  
   useEffect(() => {
     if (!roomId) return;
 
@@ -63,7 +63,7 @@ const TextEditor2: React.FC = () => {
         JSON.stringify({
           type: "cursor-update-receiver",
           userId: myUserId,
-          name: "Sagar",
+          name: username?.toString(),
           color: "blue",
           from,
           to,
