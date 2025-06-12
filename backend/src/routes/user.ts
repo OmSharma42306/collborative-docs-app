@@ -82,7 +82,7 @@ try{
 
     const token = jwt.sign({userId},my_secretkey);
     
-    res.status(200).json({msg:"Login Successful!,token:",token});
+    res.status(200).json({msg:"Login Successful!,token:",token,username:checkUserExists.name});
     return;
 
 }catch(error){

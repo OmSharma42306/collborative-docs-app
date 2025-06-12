@@ -27,7 +27,6 @@ export function initWs(){
                 const existingSession = sessions.get(roomId);
                 
                 if(!existingSession){
-                    alert("Sender is Not Ready!")
                     console.log("Sender is not Ready...")
                 }
                 if(existingSession){
